@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import render
 from rest_framework import generics, filters
 from ..models import UserRole
@@ -8,8 +9,9 @@ from ..serializers import UserRolesSerializer
 class ListUserRolesView(generics.ListCreateAPIView):
     queryset = UserRole.objects.all()
     serializer_class = UserRolesSerializer
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('event_id', 'group_id')
+    filter_backends = (DjangoFilterBackend, )
+    filter_fields = ('event_id', 'group_id', 'user_id')
+    #filters.SearchFilter, 
     #def get_queryset(self):
     #    event_id = self.request.query_params.get('event_id', None)
     #    group_id = self.request.query_params.get('group_id', None)
