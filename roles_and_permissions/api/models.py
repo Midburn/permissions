@@ -22,6 +22,8 @@ class UserRole(models.Model):
     REVOKED = 'REV'
     STATUS_CHOICES = ((ACTIVE, 'ACTIVE'), (REVOKED, 'REVOKED'))
     user_id = models.IntegerField()
+    user_name = models.CharField(max_length=128)
+    email = models.CharField(max_length=128) 
     event_id = models.CharField(max_length=64)
     group_id = models.IntegerField()
     role = models.ManyToManyField(Role)
