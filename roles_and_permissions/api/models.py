@@ -28,4 +28,4 @@ class UserRole(models.Model):
     group_id = models.IntegerField()
     role = models.ManyToManyField(Role)
     status = models.CharField(choices=STATUS_CHOICES, default='AC', max_length=8)
-    change_date = models.DateTimeField()
+    change_date = models.DateField()

@@ -12,8 +12,18 @@ class RoleSerializer(serializers.ModelSerializer):
         model = Role
         fields = ("name", 'permissions')
 
-class UserRolesSerializer(serializers.ModelSerializer):
+class UserRolesSerializer(serializers.HyperlinkedModelSerializer):
     role = RoleSerializer(many=True)
+    url = serializers.HyperlinkedIdentityField(view_name='view-user-roles', lookup_field='id')
     class Meta:
         model = UserRole
-        fields = ('user_id', 'event_id', 'group_id', 'role', 'status', 'change_date')
+        fields = (
+                  'url',
+                  'user_id',
+                  'event_id',
+                  'group_id',
+                  'role',
+                  'status',
+                  'change_date',
+                  'user_name',
+                  'email')
