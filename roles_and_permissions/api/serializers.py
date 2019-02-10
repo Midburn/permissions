@@ -6,15 +6,15 @@ class PermissionSerializer(serializers.ModelSerializer):
         model = Permission
         fields = ("name",) 
 
-class RoleSerializer(serializers.ModelSerializer):
+class RoleSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
     permissions = PermissionSerializer(many=True)
     class Meta:
         model = Role
         fields = ("name", 'permissions')
 
 class UserRolesSerializer(serializers.HyperlinkedModelSerializer):
-    role = RoleSerializer(many=True)
-    url = serializers.HyperlinkedIdentityField(view_name='view-user-roles', lookup_field='id')
+    role = RoleSerializer(many=True, queryset=Role.objects.all())
+    url = serializers.HyperlinkedIdentityField(view_name='view-user-roles', lookup_field='pk')
     class Meta:
         model = UserRole
         fields = (
